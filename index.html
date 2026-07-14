@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sites Gallery — 网站参考画廊</title>
+<style>
+  :root {
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #1a1a2e;
+    --text-muted: #6c757d;
+    --border: #e9ecef;
+    --accent: #4361ee;
+    --accent-light: #eef1ff;
+    --tag-bg: #eef1ff;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-hover: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Header */
+  header {
+    padding: 60px 0 40px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  header p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+  header .count {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* Gallery Grid */
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-bottom: 60px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+    border: 1px solid var(--border);
+  }
+  .card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+  .card-image {
+    width: 100%;
+    max-height: 480px;
+    overflow: hidden;
+    background: #f0f0f0;
+    position: relative;
+  }
+  .card-image img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .card-image .screenshot-label {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .card-body {
+    padding: 28px 30px;
+  }
+  .card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .card-title a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--accent);
+  }
+  .card-url {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    word-break: break-all;
+  }
+  .card-url a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .card-url a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+  .card-description {
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+  .card-notes {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+  .card-notes strong {
+    color: var(--accent);
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .card-tags .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--accent);
+    font-size: 0.78rem;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  .card-footer {
+    padding: 12px 30px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+  .card-footer .view-notes a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .card-footer .view-notes a:hover {
+    text-decoration: underline;
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px 0 50px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 16px; }
+    header { padding: 40px 0 28px; }
+    header h1 { font-size: 1.6rem; }
+    .card-body { padding: 20px; }
+    .card-footer { padding: 12px 20px; flex-direction: column; gap: 6px; }
+    .card-image { max-height: 300px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="container">
+  <h1>🎨 Sites Gallery</h1>
+  <p>网站设计参考与灵感收集</p>
+  <div class="count"><span id="site-count">0</span> 个收录</div>
+</header>
+
+<main class="container gallery" id="gallery">
+</main>
+
+<footer class="container">
+  由 <a href="https://github.com/ofpix/sites-gallery">sites-gallery</a> 自动整理 ·
+  <a href="https://github.com/ofpix/sites-gallery">GitHub</a>
+</footer>
+
+<script>
+const sites = [
+  {
+    "slug": "oliver-gareis",
+    "title": "Oliver Gareis",
+    "subtitle": "Award-Winning Web & Interaction Designer",
+    "url": "https://www.olivergareis.com",
+    "description": "德国跨领域设计师，专精 Web Design、Interaction Design、Motion Design。获奖设计师，风格以电影感、大胆排版、强视觉节奏著称。",
+    "designNotes": "电影感叙事 · 重排版 + Glitch/动效 · 全栈能力（Web、交互、动效、3D 渲染）",
+    "tags": ["web-design", "interaction-design", "motion-design", "portfolio"],
+    "captured": "2026-07-14"
+  }
+];
+
+document.getElementById('site-count').textContent = sites.length;
+
+const gallery = document.getElementById('gallery');
+sites.forEach(site => {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  card.innerHTML = `
+    <div class="card-image">
+      <img src="sites/${site.slug}/screenshot.jpeg" alt="${site.title} 截图"
+           loading="lazy"
+           onerror="this.parentElement.innerHTML='<div style=\\'padding:80px 20px;text-align:center;color:#999;font-size:0.9rem\\'>暂无截图</div>'">
+      <span class="screenshot-label">📷 截图预览</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title"><a href="${site.url}" target="_blank">${site.title}</a></div>
+      <div class="card-url"><a href="${site.url}" target="_blank">${site.url.replace(/^https?:\/\//, '')}</a></div>
+      <div class="card-description">${site.description}</div>
+      <div class="card-notes"><strong>📝 设计笔记</strong><br>${site.designNotes}</div>
+      <div class="card-tags">
+        ${site.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="captured">收录于 ${site.captured}</span>
+      <span class="view-notes"><a href="sites/${site.slug}/" target="_blank">查看完整笔记 →</a></span>
+    </div>
+  `;
+
+  gallery.appendChild(card);
+});
+</script>
+
+</body>
+</html>
